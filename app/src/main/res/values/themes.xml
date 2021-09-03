@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="Theme.MyMobTV" parent="@style/Theme.AppCompat.NoActionBar" />
+
+    <style name="Theme.MyMobTV.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MyMobTV.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MyMobTV.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>
