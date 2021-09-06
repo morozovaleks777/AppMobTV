@@ -2,23 +2,32 @@ package com.example.myapplicationmobtv
 
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import java.io.IOException
 import java.nio.charset.Charset
 import java.util.*
 
+import androidx.lifecycle.ViewModelProviders
+
 var feed: Feed?=null
 class Main2Activity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         val ParentRecyclerViewItem = findViewById<RecyclerView>(
             R.id.parent_recyclerview
         )
+
         val obj = getJSONFromAssets()
         val jsonAdapter: JsonAdapter<Feed> = Moshi.Builder().build().adapter(Feed::class.java)
         feed = obj?.let { jsonAdapter.fromJson(it) }
@@ -41,42 +50,40 @@ class Main2Activity : AppCompatActivity() {
         // of the parent recyclerview
         ParentRecyclerViewItem.adapter = parentItemAdapter
         ParentRecyclerViewItem.layoutManager = layoutManager
+
+        val titleTextView=findViewById<TextView>(R.id.titleTextView)
+        val textView=findViewById<TextView>(R.id.textView)
+        titleTextView.text=feed?.providerName
+       textView.text=feed?.lastUpdated
+       Log.d("Tag","feed?.lastUpdated + "+feed?.lastUpdated)
+
+
     }
 
     private fun ParentItemList(): List<ParentItem> {
         val itemList: MutableList<ParentItem> = ArrayList()
         val item = ParentItem(
             "Title 1",
-            ChildItemList()
+            ChildItemList()[0]
         )
         itemList.add(item)
         val item1 = ParentItem(
             "Title 2",
-            ChildItemList()
+            ChildItemList()[1]
         )
         itemList.add(item1)
-        val item2 = ParentItem(
-            "Title 3",
-            ChildItemList()
-        )
-        itemList.add(item2)
-        val item3 = ParentItem(
-            "Title 4",
-            ChildItemList()
-        )
-        itemList.add(item3)
+
         return itemList
     }
 
     // Method to pass the arguments
     // for the elements
     // of child RecyclerView
-    private fun ChildItemList(): List<ChildItem> {
-        val ChildItemList: MutableList<ChildItem> = ArrayList()
-        ChildItemList.add(ChildItem("Card 1"))
-        ChildItemList.add(ChildItem("Card 2"))
-        ChildItemList.add(ChildItem("Card 3"))
-        ChildItemList.add(ChildItem("Card 4"))
+    private fun ChildItemList(): List<List<SomeData>> {
+        val ChildItemList: List<List<SomeData>> = DataGenerator.getData()
+        Log.d("Tag","ChildItemList"+ChildItemList[0])
+        Log.d("Tag","ChildItemList"+ChildItemList[1])
+        Log.d("Tag","ChildItemList size"+ChildItemList.size)
         return ChildItemList
     }
     private fun getJSONFromAssets(): String? {

@@ -1,17 +1,26 @@
 package com.example.myapplicationmobtv
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
+import com.google.android.play.core.splitinstall.d
+import kotlinx.android.synthetic.main.item_data.view.*
 
 
 private class ChildItemAdapter  // Constructor
-internal constructor(private val ChildItemList: List<ChildItem>) :
+internal constructor(private val ChildItemList: List<SomeData>) :
     RecyclerView.Adapter<ChildItemAdapter.ChildViewHolder>() {
+
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         i: Int
@@ -22,7 +31,7 @@ internal constructor(private val ChildItemList: List<ChildItem>) :
         val view: View = LayoutInflater
             .from(viewGroup.context)
             .inflate(
-                R.layout.child_item,
+                R.layout.item_data,
                 viewGroup, false
             )
         return ChildViewHolder(view)
@@ -35,15 +44,47 @@ internal constructor(private val ChildItemList: List<ChildItem>) :
 
         // Create an instance of the ChildItem
         // class for the given position
+        val mDefaultCardImage = R.drawable.movie
         val childItem = ChildItemList[position]
+        when(childItem){
+            is Data ->{childViewHolder.ChildItemTitle.text =childItem.title
+                childViewHolder.ChildItemShortDescription.text = childItem.shortDescription
+
+                Glide.with(childViewHolder.itemView.imagePreview)
+                 .load(childItem.thumbnail)
+                 .centerCrop()
+                 .error(mDefaultCardImage)
+                 .into(childViewHolder.img)
+            }
+            is OtherData -> {childViewHolder.ChildItemTitle.text =childItem.title
+            childViewHolder.ChildItemShortDescription.text = childItem.shortDescription
+                Glide.with(childViewHolder.itemView.context)
+                    .load(childItem.thumbnail)
+                    .centerCrop()
+                    .error(mDefaultCardImage)
+                    .into(childViewHolder.img)
+                            }
+        }
 
         // For the created instance, set title.
         // No need to set the image for
         // the ImageViews because we have
         // provided the source for the images
         // in the layout file itself
-        childViewHolder.ChildItemTitle.text = childItem.childItemTitle
+        // childViewHolder.ChildItemTitle.text =" childItem.childItemTitle"
+       // childViewHolder.ChildItemTitle.text =childItem.title
+      //  Log.d("Tag","data.movies?.get(position)?.title"+childItem.title)
+     //   childViewHolder.ChildItemShortDescription.text = data.shortDescription
+
+
+//        Glide.with(childViewHolder.itemView.context)
+//            .load(data.d)
+//            .centerCrop()
+//            .error(mDefaultCardImage)
+//            .into(childViewHolder.img)
+
     }
+
 
     override fun getItemCount(): Int {
 
@@ -62,15 +103,22 @@ internal constructor(private val ChildItemList: List<ChildItem>) :
     internal inner class ChildViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         var ChildItemTitle: TextView
+       var ChildItemShortDescription: TextView
+    var img: ImageView
 
         init {
             ChildItemTitle = itemView.findViewById(
-                R.id.child_item_title
+                R.id.nameTextView
             )
+            ChildItemShortDescription = itemView.findViewById(
+                R.id.contentTextView
+           )
+          img = itemView.findViewById(R.id.imagePreview)
+
         }
     }
-}
 
+}
 
 class ParentItemAdapter internal constructor(private val itemList: List<ParentItem>) :
     RecyclerView.Adapter<ParentItemAdapter.ParentViewHolder>() {
@@ -174,3 +222,4 @@ class ParentItemAdapter internal constructor(private val itemList: List<ParentIt
         }
     }
 }
+

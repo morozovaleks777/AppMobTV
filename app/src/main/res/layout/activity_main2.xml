@@ -6,7 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Main2Activity">
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="128sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.119"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Some Name" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="129dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="110dp"
 
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
     <!-- This is the parent RecyclerView-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/parent_recyclerview"

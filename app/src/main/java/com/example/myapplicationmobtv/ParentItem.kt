@@ -8,5 +8,5 @@ class ParentItem     // Constructor of the class
     // for each parameter
     // Declaration of the variables
     var parentItemTitle: String,
-    var childItemList: List<ChildItem>
+    var childItemList: List<SomeData>
 )
