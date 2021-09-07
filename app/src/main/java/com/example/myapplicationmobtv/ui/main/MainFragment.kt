@@ -43,7 +43,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        val parentRecyclerViewItem = view.findViewById<RecyclerView>(R.id.parent_recyclerview)
+        val parentRecyclerViewItem= viewBinding.parentRecyclerview
         val obj = getJSONFromAssets()
         val jsonAdapter: JsonAdapter<Feed> = Moshi.Builder().build().adapter(Feed::class.java)
         feed = obj?.let { jsonAdapter.fromJson(it) }
