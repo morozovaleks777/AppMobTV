@@ -1,5 +1,6 @@
 package com.example.myapplicationmobtv
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,22 +10,24 @@ import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.view.menu.MenuView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentOnAttachListener
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
-import com.google.android.play.core.splitinstall.d
+import com.example.myapplicationmobtv.ui.main.MainViewModel
 import kotlinx.android.synthetic.main.item_data.view.*
 
+lateinit var data: SomeData
 
 private class ChildItemAdapter  // Constructor
 internal constructor(private val ChildItemList: List<SomeData>) :
-    RecyclerView.Adapter<ChildItemAdapter.ChildViewHolder>(),AdapterView.OnItemClickListener {
-    lateinit var data: SomeData
-    lateinit var context: Context
+    RecyclerView.Adapter<ChildItemAdapter.ChildViewHolder>() {
+   // lateinit var data: SomeData
+
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         i: Int
@@ -59,6 +62,11 @@ internal constructor(private val ChildItemList: List<SomeData>) :
                  .centerCrop()
                  .error(mDefaultCardImage)
                  .into(childViewHolder.img)
+
+                childViewHolder.itemView.setOnClickListener{Log.d("Tag","click id = "+childViewHolder.bindingAdapterPosition)
+                    Toast.makeText(childViewHolder.itemView .context, "Click Data ${childViewHolder.bindingAdapterPosition }",
+                        Toast.LENGTH_SHORT).show()
+                }
             }
             is OtherData -> {childViewHolder.ChildItemTitle.text =childItem.title
             childViewHolder.ChildItemShortDescription.text = childItem.shortDescription
@@ -67,7 +75,11 @@ internal constructor(private val ChildItemList: List<SomeData>) :
                     .centerCrop()
                     .error(mDefaultCardImage)
                     .into(childViewHolder.img)
-              //  setOnClickListener { listener?.onClickItem(data) }
+
+              childViewHolder.itemView.setOnClickListener{Log.d("Tag","click id = "+childViewHolder.bindingAdapterPosition)
+                  Toast.makeText(childViewHolder.itemView .context, "Click OtherData ${childViewHolder.bindingAdapterPosition }",
+                      Toast.LENGTH_SHORT).show()
+              }
                             }
         }
 
@@ -82,13 +94,11 @@ internal constructor(private val ChildItemList: List<SomeData>) :
      //   childViewHolder.ChildItemShortDescription.text = data.shortDescription
 
 
-//        Glide.with(childViewHolder.itemView.context)
-//            .load(data.d)
-//            .centerCrop()
-//            .error(mDefaultCardImage)
-//            .into(childViewHolder.img)
+
 
     }
+
+
 
 
     override fun getItemCount(): Int {
@@ -105,7 +115,7 @@ internal constructor(private val ChildItemList: List<SomeData>) :
     // This class is to initialize
     // the Views present
     // in the child RecyclerView
-    internal inner class ChildViewHolder(itemView: View) :
+    inner class ChildViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         var ChildItemTitle: TextView
        var ChildItemShortDescription: TextView
@@ -123,18 +133,6 @@ internal constructor(private val ChildItemList: List<SomeData>) :
         }
     }
 
-    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        when (data) {
-            is Data -> Toast.makeText(this.context, "Click Data ${(data as Data).id}", Toast.LENGTH_LONG).show()
-
-
-            is OtherData -> Toast.makeText(
-                context,
-                "Click Other Data${(data as OtherData).id}",
-                Toast.LENGTH_LONG
-            ).show()
-        }
-    }
 
 }
 
@@ -176,7 +174,11 @@ class ParentItemAdapter internal constructor(private val itemList: List<ParentIt
         // get the title and set it
         // as the text for the TextView
         parentViewHolder.ParentItemTitle.text = parentItem.parentItemTitle
+parentViewHolder.ParentItemTitle.setOnClickListener{
 
+    Toast.makeText( parentViewHolder.ChildRecyclerView.context, "Click Data " +
+            "${parentViewHolder.bindingAdapterPosition} ", Toast.LENGTH_SHORT).show()
+}
         
         // Create a layout manager
         // to assign a layout
@@ -204,14 +206,14 @@ class ParentItemAdapter internal constructor(private val itemList: List<ParentIt
         // Create an instance of the child
         // item view adapter and set its
         // adapter, layout manager and RecyclerViewPool
-        val childItemAdapter = ChildItemAdapter(
-            parentItem
-                .childItemList
-        )
+        val childItemAdapter = ChildItemAdapter(parentItem.childItemList)
         parentViewHolder.ChildRecyclerView.layoutManager = layoutManager
         parentViewHolder.ChildRecyclerView.adapter = childItemAdapter
         parentViewHolder.ChildRecyclerView
             .setRecycledViewPool(viewPool)
+
+
+
     }
 
     // This method returns the number
@@ -244,5 +246,4 @@ class ParentItemAdapter internal constructor(private val itemList: List<ParentIt
     }
 
 
-}
-
+    }
