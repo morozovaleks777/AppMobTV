@@ -25,11 +25,11 @@ class MainViewModel : ViewModel() {
         return itemList
     }
     private fun childItemList(): List<List<SomeData>> {
-        val ChildItemList: List<List<SomeData>> = DataGenerator.getData()
-        Log.d("Tag","ChildItemList"+ChildItemList[0])
-        Log.d("Tag","ChildItemList"+ChildItemList[1])
-        Log.d("Tag","ChildItemList size"+ChildItemList.size)
-        return ChildItemList
+        val childItemList: List<List<SomeData>> = DataGenerator.getData()
+        Log.d("Tag","ChildItemList"+childItemList[0])
+        Log.d("Tag","ChildItemList"+childItemList[1])
+        Log.d("Tag","ChildItemList size"+childItemList.size)
+        return childItemList
     }
 
 

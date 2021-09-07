@@ -1,23 +1,22 @@
 package com.example.myapplicationmobtv.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
-import androidx.lifecycle.LifecycleOwner
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.myapplicationmobtv.*
+import com.example.myapplicationmobtv.Feed
+import com.example.myapplicationmobtv.ParentItemAdapter
+import com.example.myapplicationmobtv.R
 import com.example.myapplicationmobtv.databinding.MainFragmentBinding
+import com.example.myapplicationmobtv.feed
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import kotlinx.android.synthetic.main.main_fragment.*
 import java.io.IOException
 import java.nio.charset.Charset
 
@@ -43,7 +42,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        val ParentRecyclerViewItem = view.findViewById<RecyclerView>(R.id.parent_recyclerview)
+        val parentRecyclerViewItem = view.findViewById<RecyclerView>(R.id.parent_recyclerview)
         val obj = getJSONFromAssets()
         val jsonAdapter: JsonAdapter<Feed> = Moshi.Builder().build().adapter(Feed::class.java)
         feed = obj?.let { jsonAdapter.fromJson(it) }
@@ -58,42 +57,26 @@ class MainFragment : Fragment() {
         // These arguments are passed
         // using a method ParentItemList()
         val parentItemAdapter = ParentItemAdapter(
-            viewModel.ParentItemList()
+            viewModel.parentItemList()
 
         )
 
         // Set the layout manager
         // and adapter for items
         // of the parent recyclerview
-        ParentRecyclerViewItem.adapter = parentItemAdapter
-        ParentRecyclerViewItem.layoutManager = layoutManager
+        parentRecyclerViewItem.adapter = parentItemAdapter
+        parentRecyclerViewItem.layoutManager = layoutManager
 
-       // val titleTextView=view.findViewById<TextView>(R.id.titleTextView)
         val titleTextView=viewBinding.titleTextView
         val textView=viewBinding.textView
         titleTextView.text=feed?.providerName
         textView.text=feed?.lastUpdated
-        Log.d("Tag","feed?.lastUpdated + "+ com.example.myapplicationmobtv.feed?.lastUpdated)
-
-
-
+        Log.d("Tag","feed?.lastUpdated + "+ feed?.lastUpdated)
     }
-//    override fun onClickItem(data: SomeData) {
-//
-//        when (data) {
-//            is Data -> Toast.makeText(context, "Click Data ${data.id}", Toast.LENGTH_LONG).show()
-//
-//
-//            is OtherData -> Toast.makeText(
-//                context,
-//                "Click Other Data${data.id}",
-//                Toast.LENGTH_LONG
-//            ).show()
-//        }
-//    }
-    fun getJSONFromAssets(): String? {
 
-        var json: String?=null
+private fun getJSONFromAssets(): String? {
+
+        val json: String?
         val charset: Charset = Charsets.UTF_8
         try {
             val myFeedJSONFile =context?.assets?.open("feed.json")

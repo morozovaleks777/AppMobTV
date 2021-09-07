@@ -1,38 +1,26 @@
 package com.example.myapplicationmobtv
 
-import android.app.Application
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentOnAttachListener
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.bumptech.glide.Glide
-import com.example.myapplicationmobtv.ui.main.MainViewModel
 import kotlinx.android.synthetic.main.item_data.view.*
 
-lateinit var data: SomeData
 
 private class ChildItemAdapter  // Constructor
-internal constructor(private val ChildItemList: List<SomeData>) :
+constructor(private val ChildItemList: List<SomeData>) :
     RecyclerView.Adapter<ChildItemAdapter.ChildViewHolder>() {
-   // lateinit var data: SomeData
-
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         i: Int
     ): ChildViewHolder {
-
         // Here we inflate the corresponding
         // layout of the child item
         val view: View = LayoutInflater
@@ -52,54 +40,46 @@ internal constructor(private val ChildItemList: List<SomeData>) :
         // Create an instance of the ChildItem
         // class for the given position
         val mDefaultCardImage = R.drawable.movie
-        val childItem = ChildItemList[position]
-        when(childItem){
-            is Data ->{childViewHolder.ChildItemTitle.text =childItem.title
-                childViewHolder.ChildItemShortDescription.text = childItem.shortDescription
+        when (val childItem = ChildItemList[position]) {
+            is Data -> {
+                childViewHolder.childItemTitle.text = childItem.title
+                childViewHolder.childItemShortDescription.text = childItem.shortDescription
 
                 Glide.with(childViewHolder.itemView.imagePreview)
-                 .load(childItem.thumbnail)
-                 .centerCrop()
-                 .error(mDefaultCardImage)
-                 .into(childViewHolder.img)
+                    .load(childItem.thumbnail)
+                    .centerCrop()
+                    .error(mDefaultCardImage)
+                    .into(childViewHolder.img)
 
-                childViewHolder.itemView.setOnClickListener{Log.d("Tag","click id = "+childViewHolder.bindingAdapterPosition)
-                    Toast.makeText(childViewHolder.itemView .context, "Click Data ${childViewHolder.bindingAdapterPosition }",
-                        Toast.LENGTH_SHORT).show()
+                childViewHolder.itemView.setOnClickListener {
+                    Log.d("Tag", "click id = " + childViewHolder.bindingAdapterPosition)
+                    Toast.makeText(
+                        childViewHolder.itemView.context,
+                        "Click Data ${childViewHolder.bindingAdapterPosition}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
-            is OtherData -> {childViewHolder.ChildItemTitle.text =childItem.title
-            childViewHolder.ChildItemShortDescription.text = childItem.shortDescription
+            is OtherData -> {
+                childViewHolder.childItemTitle.text = childItem.title
+                childViewHolder.childItemShortDescription.text = childItem.shortDescription
                 Glide.with(childViewHolder.itemView.context)
                     .load(childItem.thumbnail)
                     .centerCrop()
                     .error(mDefaultCardImage)
                     .into(childViewHolder.img)
 
-              childViewHolder.itemView.setOnClickListener{Log.d("Tag","click id = "+childViewHolder.bindingAdapterPosition)
-                  Toast.makeText(childViewHolder.itemView .context, "Click OtherData ${childViewHolder.bindingAdapterPosition }",
-                      Toast.LENGTH_SHORT).show()
-              }
-                            }
+                childViewHolder.itemView.setOnClickListener {
+                    Log.d("Tag", "click id = " + childViewHolder.bindingAdapterPosition)
+                    Toast.makeText(
+                        childViewHolder.itemView.context,
+                        "Click OtherData ${childViewHolder.bindingAdapterPosition}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
-
-        // For the created instance, set title.
-        // No need to set the image for
-        // the ImageViews because we have
-        // provided the source for the images
-        // in the layout file itself
-        // childViewHolder.ChildItemTitle.text =" childItem.childItemTitle"
-       // childViewHolder.ChildItemTitle.text =childItem.title
-      //  Log.d("Tag","data.movies?.get(position)?.title"+childItem.title)
-     //   childViewHolder.ChildItemShortDescription.text = data.shortDescription
-
-
-
-
     }
-
-
-
 
     override fun getItemCount(): Int {
 
@@ -117,20 +97,14 @@ internal constructor(private val ChildItemList: List<SomeData>) :
     // in the child RecyclerView
     inner class ChildViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        var ChildItemTitle: TextView
-       var ChildItemShortDescription: TextView
-    var img: ImageView
+        var childItemTitle: TextView = itemView.findViewById(
+            R.id.nameTextView
+        )
+        var childItemShortDescription: TextView = itemView.findViewById(
+            R.id.contentTextView
+        )
+        var img: ImageView = itemView.findViewById(R.id.imagePreview)
 
-        init {
-            ChildItemTitle = itemView.findViewById(
-                R.id.nameTextView
-            )
-            ChildItemShortDescription = itemView.findViewById(
-                R.id.contentTextView
-           )
-          img = itemView.findViewById(R.id.imagePreview)
-
-        }
     }
 
 
@@ -173,13 +147,15 @@ class ParentItemAdapter internal constructor(private val itemList: List<ParentIt
         // For the created instance,
         // get the title and set it
         // as the text for the TextView
-        parentViewHolder.ParentItemTitle.text = parentItem.parentItemTitle
-parentViewHolder.ParentItemTitle.setOnClickListener{
+        parentViewHolder.parentItemTitle.text = parentItem.parentItemTitle
+        parentViewHolder.parentItemTitle.setOnClickListener {
 
-    Toast.makeText( parentViewHolder.ChildRecyclerView.context, "Click Data " +
-            "${parentViewHolder.bindingAdapterPosition} ", Toast.LENGTH_SHORT).show()
-}
-        
+            Toast.makeText(
+                parentViewHolder.childRecyclerView.context, "Click Data " +
+                        "${parentViewHolder.bindingAdapterPosition} ", Toast.LENGTH_SHORT
+            ).show()
+        }
+
         // Create a layout manager
         // to assign a layout
         // to the RecyclerView.
@@ -187,7 +163,7 @@ parentViewHolder.ParentItemTitle.setOnClickListener{
         // Here we have assigned the layout
         // as LinearLayout with vertical orientation
         val layoutManager = LinearLayoutManager(
-            parentViewHolder.ChildRecyclerView
+            parentViewHolder.childRecyclerView
                 .context,
             LinearLayoutManager.HORIZONTAL,
             false
@@ -207,11 +183,10 @@ parentViewHolder.ParentItemTitle.setOnClickListener{
         // item view adapter and set its
         // adapter, layout manager and RecyclerViewPool
         val childItemAdapter = ChildItemAdapter(parentItem.childItemList)
-        parentViewHolder.ChildRecyclerView.layoutManager = layoutManager
-        parentViewHolder.ChildRecyclerView.adapter = childItemAdapter
-        parentViewHolder.ChildRecyclerView
+        parentViewHolder.childRecyclerView.layoutManager = layoutManager
+        parentViewHolder.childRecyclerView.adapter = childItemAdapter
+        parentViewHolder.childRecyclerView
             .setRecycledViewPool(viewPool)
-
 
 
     }
@@ -230,20 +205,14 @@ parentViewHolder.ParentItemTitle.setOnClickListener{
     // the parent RecyclerView
     inner class ParentViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        val ParentItemTitle: TextView
-        val ChildRecyclerView: RecyclerView
-
-        init {
-            ParentItemTitle = itemView
-                .findViewById(
-                    R.id.parent_item_title
-                )
-            ChildRecyclerView = itemView
-                .findViewById(
-                    R.id.child_recyclerview
-                )
-        }
-    }
-
+        val parentItemTitle: TextView = itemView
+            .findViewById(
+                R.id.parent_item_title
+            )
+        val childRecyclerView: RecyclerView = itemView
+            .findViewById(
+                R.id.child_recyclerview
+            )
 
     }
+}
