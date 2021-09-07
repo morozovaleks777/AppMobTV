@@ -1,5 +1,6 @@
 package com.example.myapplicationmobtv
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -19,8 +22,9 @@ import kotlinx.android.synthetic.main.item_data.view.*
 
 private class ChildItemAdapter  // Constructor
 internal constructor(private val ChildItemList: List<SomeData>) :
-    RecyclerView.Adapter<ChildItemAdapter.ChildViewHolder>() {
-
+    RecyclerView.Adapter<ChildItemAdapter.ChildViewHolder>(),AdapterView.OnItemClickListener {
+    lateinit var data: SomeData
+    lateinit var context: Context
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         i: Int
@@ -63,6 +67,7 @@ internal constructor(private val ChildItemList: List<SomeData>) :
                     .centerCrop()
                     .error(mDefaultCardImage)
                     .into(childViewHolder.img)
+              //  setOnClickListener { listener?.onClickItem(data) }
                             }
         }
 
@@ -118,10 +123,25 @@ internal constructor(private val ChildItemList: List<SomeData>) :
         }
     }
 
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        when (data) {
+            is Data -> Toast.makeText(this.context, "Click Data ${(data as Data).id}", Toast.LENGTH_LONG).show()
+
+
+            is OtherData -> Toast.makeText(
+                context,
+                "Click Other Data${(data as OtherData).id}",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
 }
 
 class ParentItemAdapter internal constructor(private val itemList: List<ParentItem>) :
     RecyclerView.Adapter<ParentItemAdapter.ParentViewHolder>() {
+
+
     // An object of RecyclerView.RecycledViewPool
     // is created to share the Views
     // between the child and
@@ -157,6 +177,7 @@ class ParentItemAdapter internal constructor(private val itemList: List<ParentIt
         // as the text for the TextView
         parentViewHolder.ParentItemTitle.text = parentItem.parentItemTitle
 
+        
         // Create a layout manager
         // to assign a layout
         // to the RecyclerView.
@@ -221,5 +242,7 @@ class ParentItemAdapter internal constructor(private val itemList: List<ParentIt
                 )
         }
     }
+
+
 }
 
