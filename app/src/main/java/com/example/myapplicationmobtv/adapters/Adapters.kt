@@ -1,5 +1,8 @@
 package com.example.myapplicationmobtv
 
+
+
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +10,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.add
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
+import androidx.recyclerview.widget.RecyclerView.*
 import com.bumptech.glide.Glide
+import com.example.myapplicationmobtv.ui.main.MainFragment
 import kotlinx.android.synthetic.main.item_data.view.*
 
 
@@ -41,7 +47,7 @@ constructor(private val ChildItemList: List<SomeData>) :
         // class for the given position
         val mDefaultCardImage = R.drawable.movie
         when (val childItem = ChildItemList[position]) {
-            is Data -> {
+            is Movie -> {
                 childViewHolder.childItemTitle.text = childItem.title
                 childViewHolder.childItemShortDescription.text = childItem.shortDescription
 
@@ -60,8 +66,9 @@ constructor(private val ChildItemList: List<SomeData>) :
                     ).show()
                 }
             }
-            is OtherData -> {
-                childViewHolder.childItemTitle.text = childItem.title
+            is Serie -> {
+                childViewHolder.childItemTitle.text = childItem.seasons.toString()
+              //  Log.d("Tag"," childItem.seasones.toString()"+childItem.seasones.get(position).episodes[position].thumbnail)
                 childViewHolder.childItemShortDescription.text = childItem.shortDescription
                 Glide.with(childViewHolder.itemView.context)
                     .load(childItem.thumbnail)
@@ -70,16 +77,41 @@ constructor(private val ChildItemList: List<SomeData>) :
                     .into(childViewHolder.img)
 
                 childViewHolder.itemView.setOnClickListener {
+                  view ->
                     Log.d("Tag", "click id = " + childViewHolder.bindingAdapterPosition)
                     Toast.makeText(
                         childViewHolder.itemView.context,
                         "Click OtherData ${childViewHolder.bindingAdapterPosition}",
                         Toast.LENGTH_SHORT
                     ).show()
+
+
+                    val fragment = MainFragment()
+                    val bundle = Bundle()
+
+                    bundle.putString(
+                        "key", childViewHolder.layoutPosition.toString(),
+
+
+                    )
+                    fragment.arguments = bundle
+                   // Log.d("Tag", "fragment.arguments " + fragment.arguments)
+
+
+                    (view.context  as AppCompatActivity).supportFragmentManager.beginTransaction()
+                        .setReorderingAllowed(false)
+                        .replace(R.id.mainFragment,SeriesFragment.newInstance())
+                        .add<SeriesFragment>("Key",fragment.arguments)
+                        .addToBackStack(null)
+                        .commit()
+
                 }
             }
         }
+
     }
+
+
 
     override fun getItemCount(): Int {
 
@@ -106,6 +138,8 @@ constructor(private val ChildItemList: List<SomeData>) :
         var img: ImageView = itemView.findViewById(R.id.imagePreview)
 
     }
+
+
 
 
 }

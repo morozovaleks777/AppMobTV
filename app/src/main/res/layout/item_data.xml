@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="132sp"
+    android:layout_height="100dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemData"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="5dp"
+    android:drawableStart="@drawable/icon"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+<LinearLayout
     android:layout_width="128sp"
-    android:layout_height="96dp"
+    android:layout_height="100dp"
     android:orientation="vertical"
-    android:id="@+id/itemData">
+    >
     <ImageView
         android:id="@+id/imagePreview"
-        android:layout_width="match_parent"
+        android:layout_width="97dp"
         android:layout_height="56dp"
+        android:layout_gravity="center"
         />
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="128sp"
-        android:layout_height="12sp"
+        android:layout_height="20sp"
 
         android:gravity="center"
         android:textColor="@android:color/holo_red_light"
         android:textSize="9sp"
-        tools:text="Some Name" />
+        tools:text="Some Name"
+        />
 
     <TextView
         android:id="@+id/contentTextView"
@@ -32,3 +44,4 @@
         tools:text="Some Content" />
 
 </LinearLayout>
+</androidx.cardview.widget.CardView>

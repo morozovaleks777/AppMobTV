@@ -84,7 +84,7 @@ data class Feed(
             val episodes: List<Episode>,
             @Json(name = "seasonNumber")
             val seasonNumber: Int
-        ) {
+        ) :SomeData{
             @JsonClass(generateAdapter = true)
             data class Episode(
                 @Json(name = "content")
@@ -101,7 +101,7 @@ data class Feed(
                 val thumbnail: String,
                 @Json(name = "title")
                 val title: String
-            ) {
+            ):SomeData {
                 @JsonClass(generateAdapter = true)
                 data class Content(
                     @Json(name = "captions")

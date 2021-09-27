@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.myapplicationmobtv.ui.main.MainFragment
 var feed: Feed?=null
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,6 +16,16 @@ class MainActivity : AppCompatActivity() {
                 .commitNow()
         }
 
+
     }
+
+
+//    fun openNextFragment(id: Int) {
+//        supportFragmentManager.beginTransaction()
+//            .setReorderingAllowed(true)
+//            .replace(R.id.mainFragment, SeriesFragment())
+//            .addToBackStack(null)
+//            .commit()
+//    }
 
 }
