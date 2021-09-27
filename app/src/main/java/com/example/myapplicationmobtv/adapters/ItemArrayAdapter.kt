@@ -64,7 +64,7 @@ class ItemArrayAdapter     // Constructor of the class
 
         override fun onClick(view: View?) {
             Log.d("Tag", "onClick " + layoutPosition + " " + item.text)
-           //  seasonsNumber=layoutPosition
+             seasonsNumber=layoutPosition
             if(previousClickedItemPosition!=layoutPosition) {
                 previousClickedItemPosition = layoutPosition
 
