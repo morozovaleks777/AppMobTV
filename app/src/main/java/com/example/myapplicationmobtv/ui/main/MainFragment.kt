@@ -11,11 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.myapplicationmobtv.Feed
-import com.example.myapplicationmobtv.ParentItemAdapter
-import com.example.myapplicationmobtv.R
+import com.example.myapplicationmobtv.*
 import com.example.myapplicationmobtv.databinding.MainFragmentBinding
-import com.example.myapplicationmobtv.feed
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import java.io.IOException
@@ -26,7 +23,6 @@ class MainFragment : Fragment() {
     companion object {
         fun newInstance() = MainFragment()
     }
-
     private lateinit var viewModel: MainViewModel
     private val viewBinding: MainFragmentBinding by viewBinding()
 
@@ -76,9 +72,13 @@ class MainFragment : Fragment() {
         titleTextView.setOnClickListener {
             Toast.makeText(context,"Roku",Toast.LENGTH_SHORT).show()
         }
+
     }
 
-private fun getJSONFromAssets(): String? {
+
+
+
+    fun getJSONFromAssets(): String? {
 
         val json: String?
         val charset: Charset = Charsets.UTF_8
@@ -95,5 +95,7 @@ private fun getJSONFromAssets(): String? {
         }
         return json
     }
+
+
 
 }

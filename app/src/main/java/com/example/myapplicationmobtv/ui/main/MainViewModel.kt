@@ -7,7 +7,7 @@ import com.example.myapplicationmobtv.ParentItem
 import com.example.myapplicationmobtv.SomeData
 import java.util.*
 
-class MainViewModel : ViewModel() {
+class MainViewModel : ViewModel(){
 
     fun parentItemList(): List<ParentItem> {
         val itemList: MutableList<ParentItem> = ArrayList()
@@ -31,6 +31,7 @@ class MainViewModel : ViewModel() {
         Log.d("Tag","ChildItemList size"+childItemList.size)
         return childItemList
     }
+
 
 
 

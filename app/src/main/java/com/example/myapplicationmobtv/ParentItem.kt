@@ -10,3 +10,8 @@ class ParentItem     // Constructor of the class
     var parentItemTitle: String,
     var childItemList: List<SomeData>
 )
+class Parentitemseries(
+
+    var itemList: List<SomeData>
+
+)
