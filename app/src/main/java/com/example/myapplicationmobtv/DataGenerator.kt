@@ -8,7 +8,7 @@ object DataGenerator {
     fun getData(): List<MutableList<SomeData>> {
         val dataList = mutableListOf<SomeData>()
         val dataList2 = mutableListOf<SomeData>()
-      // val dataList3 = mutableListOf<SomeData>()
+
 
         for (j in 0..20) {
             for (i in 1..series?.size!!) {
@@ -16,7 +16,7 @@ object DataGenerator {
                 dataList.add(
                     Serie(
                         series!!.get(i-1).seasons,
-                        i,
+                        i-1,
                         series?.get(i - 1)?.title!!,
                         series?.get(i - 1)?.shortDescription!!,
                         series?.get(i - 1)?.thumbnail
@@ -30,18 +30,12 @@ object DataGenerator {
                     )
                 )
 
-//                for(a in 1..series!!.get(i).seasons.size)
-//            dataList4.put("season $a",
-//                Season(series!!.get(i-1).seasons.get(a-1).episodes,series!!.get(i-1).seasons.get(a-1).seasonNumber))
                 allDataList.add(dataList)
                 allDataList.add(dataList2)
-              //  allDataList.add(dataList3)
             }
         }
 
         return allDataList
-
     }
-
 
 }

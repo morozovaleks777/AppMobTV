@@ -9,14 +9,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.myapplicationmobtv.*
+import com.example.myapplicationmobtv.ParentItemAdapter
+import com.example.myapplicationmobtv.R
 import com.example.myapplicationmobtv.databinding.MainFragmentBinding
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import java.io.IOException
-import java.nio.charset.Charset
+import com.example.myapplicationmobtv.feed
 
 class MainFragment : Fragment() {
 
@@ -40,9 +37,9 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         val parentRecyclerViewItem= viewBinding.parentRecyclerview
-        val obj = getJSONFromAssets()
-        val jsonAdapter: JsonAdapter<Feed> = Moshi.Builder().build().adapter(Feed::class.java)
-        feed = obj?.let { jsonAdapter.fromJson(it) }
+//        val obj = getJSONFromAssets()
+//        val jsonAdapter: JsonAdapter<Feed> = Moshi.Builder().build().adapter(Feed::class.java)
+//        feed = obj?.let { jsonAdapter.fromJson(it) }
 
         // Initialise the Linear layout manager
         val layoutManager = LinearLayoutManager(
@@ -75,26 +72,23 @@ class MainFragment : Fragment() {
 
     }
 
-
-
-
-    fun getJSONFromAssets(): String? {
-
-        val json: String?
-        val charset: Charset = Charsets.UTF_8
-        try {
-            val myFeedJSONFile =context?.assets?.open("feed.json")
-            val size = myFeedJSONFile?.available()
-            val buffer = size?.let { ByteArray(it) }
-            myFeedJSONFile?.read(buffer)
-            myFeedJSONFile?.close()
-            json = buffer?.let { String(it, charset) }
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-            return null
-        }
-        return json
-    }
+//    fun getJSONFromAssets(): String? {
+//
+//        val json: String?
+//        val charset: Charset = Charsets.UTF_8
+//        try {
+//            val myFeedJSONFile =context?.assets?.open("feed.json")
+//            val size = myFeedJSONFile?.available()
+//            val buffer = size?.let { ByteArray(it) }
+//            myFeedJSONFile?.read(buffer)
+//            myFeedJSONFile?.close()
+//            json = buffer?.let { String(it, charset) }
+//        } catch (ex: IOException) {
+//            ex.printStackTrace()
+//            return null
+//        }
+//        return json
+//    }
 
 
 

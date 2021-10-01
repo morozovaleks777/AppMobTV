@@ -7,11 +7,36 @@
     android:background="@drawable/movie"
     tools:context=".SeriesFragment">
 
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="100dp"
+        android:layout_height="114dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Some Name" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="112dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="28dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
     <androidx.recyclerview.widget.RecyclerView
 
         android:id="@+id/recyclerView1"
-        android:layout_width="102dp"
-        android:layout_height="724dp"
+        android:layout_width="118dp"
+        android:layout_height="313dp"
         android:layout_margin="10dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
@@ -20,21 +45,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
-        android:layout_width="189dp"
-        android:layout_height="708dp"
+        android:layout_width="125dp"
+        android:layout_height="371dp"
         android:layout_marginStart="266dp"
         android:layout_marginTop="7dp"
 
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.972" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -89,8 +89,10 @@ constructor(private val ChildItemList: List<SomeData>) :
                     val fragment = MainFragment()
                     val bundle = Bundle()
 
-                    bundle.putString(
-                        "key", childViewHolder.layoutPosition.toString(),
+                    bundle.putInt(
+                       //"Key", childViewHolder.layoutPosition,
+                        "Key",childItem.id
+                     //  "key", feed.toString()
 
 
                     )
@@ -100,7 +102,7 @@ constructor(private val ChildItemList: List<SomeData>) :
 
                     (view.context  as AppCompatActivity).supportFragmentManager.beginTransaction()
                         .setReorderingAllowed(false)
-                        .replace(R.id.mainFragment,SeriesFragment.newInstance())
+                        .replace(R.id.container,SeriesFragment.newInstance())
                         .add<SeriesFragment>("Key",fragment.arguments)
                         .addToBackStack(null)
                         .commit()

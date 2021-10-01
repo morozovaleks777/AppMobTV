@@ -23,7 +23,7 @@ class ItemArrayAdapter     // Constructor of the class
 
     // get the size of the list
     override fun getItemCount(): Int {
-        return    feed?.series?.get(serieId.getInt("key"))?.seasons!!.size  //itemList. size
+        return   itemList.size   // feed?.series?.get(serieId.getInt("key"))?.seasons!!.size  //itemList. size
     }
 
     // specify the row layout file and click for each row
@@ -40,18 +40,21 @@ class ItemArrayAdapter     // Constructor of the class
 
 
       //  val childItem = itemList[listPosition]
-      holder.item.setText("${feed?.series?.get(serieId.getInt("key"))?.seasons?.get(listPosition)?.seasonNumber!!}")
+        if(listPosition<5){
+     holder.item.setText("${feed?.series?.get(serieId.getInt("key"))?.seasons?.get(0)?.seasonNumber!!}")}
+      else  holder.item.setText("${feed?.series?.get(serieId.getInt("key"))?.seasons?.get(1)?.seasonNumber!!}")
+
        holder.item2.setText("season" )
-      //  holder.cardView.setCardBackgroundColor(0)
+        holder.cardView.setCardBackgroundColor(0)
 
-//        holder.cardView.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
-//            if (hasFocus) {
-//
-//                holder.cardView.setBackgroundColor(Color.DKGRAY)
-//            } else  holder.cardView.setBackgroundColor(0)
+        holder.cardView.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
 
-     //   })
-        if(previousClickedItemPosition==listPosition){holder.cardView.setBackgroundColor(Color.DKGRAY)}else holder.cardView.setBackgroundColor(0)
+                holder.cardView.setBackgroundColor(Color.DKGRAY)
+            } else  holder.cardView.setBackgroundColor(0)
+
+        })
+        //if(previousClickedItemPosition==listPosition){holder.cardView.setBackgroundColor(Color.DKGRAY)}else holder.cardView.setBackgroundColor(0)
     }
 
     // Static inner class to initialize the views of rows
@@ -64,18 +67,21 @@ class ItemArrayAdapter     // Constructor of the class
 
         override fun onClick(view: View?) {
             Log.d("Tag", "onClick " + layoutPosition + " " + item.text)
-             seasonsNumber=layoutPosition
+             seasonsNumber=when{
+                 layoutPosition<5 -> (feed?.series?.get(serieId.getInt("key"))?.seasons?.get(0)?.seasonNumber!!)-1
+             else ->(feed?.series?.get(serieId.getInt("key"))?.seasons?.get(1)?.seasonNumber!!)-1}
             if(previousClickedItemPosition!=layoutPosition) {
                 previousClickedItemPosition = layoutPosition
 
-bindingAdapter?.notifyItemChanged(previousClickedItemPosition)
+                    //bindingAdapter?.notifyItemChanged(previousClickedItemPosition)
 
 
                 (view?.context as AppCompatActivity).supportFragmentManager.beginTransaction()
                     .setReorderingAllowed(false)
-                    .replace(R.id.mainFragment, SeriesFragment.newInstance())
+                    .replace(R.id.container, SeriesFragment())
                     .addToBackStack(null)
                     .commit()
+
             }
 
         }
