@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="100dp"
-        android:layout_height="114dp"
+        android:layout_width="239dp"
+        android:layout_height="26dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:textColor="@android:color/holo_red_light"
@@ -23,8 +23,8 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="112dp"
-        android:layout_height="48dp"
+        android:layout_width="360dp"
+        android:layout_height="16dp"
         android:layout_marginTop="28dp"
 
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
 
         android:id="@+id/recyclerView1"
         android:layout_width="118dp"
-        android:layout_height="313dp"
+        android:layout_height="440dp"
         android:layout_margin="10dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
@@ -58,9 +58,9 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.972" />
+        app:layout_constraintVertical_bias="0.572" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

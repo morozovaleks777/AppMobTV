@@ -2,7 +2,7 @@ package com.example.myapplicationmobtv
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+
 import com.example.myapplicationmobtv.ui.main.MainFragment
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
