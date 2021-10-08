@@ -2,16 +2,19 @@ package com.example.myapplicationmobtv
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
-import com.example.myapplicationmobtv.ui.main.MainFragment
+import android.util.Log
+import android.widget.Toast
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.myapplicationmobtv.databinding.MainActivityBinding
+import com.example.myapplicationmobtv.main_screen.MainFragment
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import java.io.IOException
 import java.nio.charset.Charset
 
-var feed: Feed?=null
-class MainActivity : AppCompatActivity(){
 
+class MainActivity : AppCompatActivity(){
+    private val viewBinding: MainActivityBinding by viewBinding()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
@@ -23,6 +26,15 @@ class MainActivity : AppCompatActivity(){
         val obj = getJSONFromAssets()
         val jsonAdapter: JsonAdapter<Feed> = Moshi.Builder().build().adapter(Feed::class.java)
         feed = obj?.let { jsonAdapter.fromJson(it) }
+
+        val titleTextView=viewBinding.titleTextView
+        val textView=viewBinding.textView
+        titleTextView.text= feed?.providerName
+        textView.text= feed?.lastUpdated
+        Log.d("Tag","feed?.lastUpdated + "+ feed?.lastUpdated)
+        titleTextView.setOnClickListener {
+            Toast.makeText(this,"Roku", Toast.LENGTH_SHORT).show()
+        }
 
     }
     fun getJSONFromAssets(): String? {
@@ -43,12 +55,8 @@ class MainActivity : AppCompatActivity(){
         return json
     }
 
-//    fun openNextFragment(id: Int) {
-//        supportFragmentManager.beginTransaction()
-//            .setReorderingAllowed(true)
-//            .replace(R.id.mainFragment, SeriesFragment())
-//            .addToBackStack(null)
-//            .commit()
-//    }
+companion object{
+    var feed: Feed?=null
+}
 
 }

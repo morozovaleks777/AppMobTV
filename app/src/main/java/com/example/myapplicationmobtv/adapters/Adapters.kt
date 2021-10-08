@@ -1,7 +1,6 @@
 package com.example.myapplicationmobtv
 
 
-
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,12 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.*
 import com.bumptech.glide.Glide
-import com.example.myapplicationmobtv.ui.main.MainFragment
+import com.example.myapplicationmobtv.main_screen.MainFragment
+import com.example.myapplicationmobtv.series_screen.SeriesFragment
 import kotlinx.android.synthetic.main.item_data.view.*
 
 
 private class ChildItemAdapter  // Constructor
-constructor(private val ChildItemList: List<SomeData>) :
+constructor(private val ChildItemList: List<FeedData>) :
     RecyclerView.Adapter<ChildItemAdapter.ChildViewHolder>() {
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
@@ -47,7 +47,7 @@ constructor(private val ChildItemList: List<SomeData>) :
         // class for the given position
         val mDefaultCardImage = R.drawable.movie
         when (val childItem = ChildItemList[position]) {
-            is Movie -> {
+            is Feed.Movie -> {
                 childViewHolder.childItemTitle.text = childItem.title
                 childViewHolder.childItemShortDescription.text = childItem.shortDescription
 
@@ -66,9 +66,8 @@ constructor(private val ChildItemList: List<SomeData>) :
                     ).show()
                 }
             }
-            is Serie -> {
+            is Feed.Serie -> {
                 childViewHolder.childItemTitle.text = childItem.seasons.toString()
-              //  Log.d("Tag"," childItem.seasones.toString()"+childItem.seasones.get(position).episodes[position].thumbnail)
                 childViewHolder.childItemShortDescription.text = childItem.shortDescription
                 Glide.with(childViewHolder.itemView.context)
                     .load(childItem.thumbnail)
@@ -76,8 +75,7 @@ constructor(private val ChildItemList: List<SomeData>) :
                     .error(mDefaultCardImage)
                     .into(childViewHolder.img)
 
-                childViewHolder.itemView.setOnClickListener {
-                  view ->
+                childViewHolder.itemView.setOnClickListener { view ->
                     Log.d("Tag", "click id = " + childViewHolder.bindingAdapterPosition)
                     Toast.makeText(
                         childViewHolder.itemView.context,
@@ -88,22 +86,12 @@ constructor(private val ChildItemList: List<SomeData>) :
 
                     val fragment = MainFragment()
                     val bundle = Bundle()
-
-                    bundle.putInt(
-                       //"Key", childViewHolder.layoutPosition,
-                        "Key",childItem.id
-                     //  "key", feed.toString()
-
-
-                    )
+                    bundle.putString("Key", childItem.id)
                     fragment.arguments = bundle
-                   // Log.d("Tag", "fragment.arguments " + fragment.arguments)
-
-
-                    (view.context  as AppCompatActivity).supportFragmentManager.beginTransaction()
-                        .setReorderingAllowed(false)
-                        .replace(R.id.container,SeriesFragment.newInstance())
-                        .add<SeriesFragment>("Key",fragment.arguments)
+                    (view.context as AppCompatActivity).supportFragmentManager.beginTransaction()
+                        // .setReorderingAllowed(false)
+                        .replace(R.id.container, SeriesFragment.newInstance())
+                        .add<SeriesFragment>("Key", fragment.arguments)
                         .addToBackStack(null)
                         .commit()
 
@@ -114,21 +102,12 @@ constructor(private val ChildItemList: List<SomeData>) :
     }
 
 
-
     override fun getItemCount(): Int {
 
-        // This method returns the number
-        // of items we have added
-        // in the ChildItemList
-        // i.e. the number of instances
-        // of the ChildItemList
-        // that have been created
         return ChildItemList.size
     }
 
-    // This class is to initialize
-    // the Views present
-    // in the child RecyclerView
+    // This class is to initialize the Views present in the child RecyclerView
     inner class ChildViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         var childItemTitle: TextView = itemView.findViewById(
@@ -140,9 +119,6 @@ constructor(private val ChildItemList: List<SomeData>) :
         var img: ImageView = itemView.findViewById(R.id.imagePreview)
 
     }
-
-
-
 
 }
 

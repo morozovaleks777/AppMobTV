@@ -1,11 +1,12 @@
-package com.example.myapplicationmobtv.ui.main
+package com.example.myapplicationmobtv.main_screen
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.myapplicationmobtv.DataGenerator
+import com.example.myapplicationmobtv.FeedData
+import com.example.myapplicationmobtv.data.DataGenerator
 import com.example.myapplicationmobtv.ParentItem
-import com.example.myapplicationmobtv.SomeData
-import java.util.*
+
+
 
 class MainViewModel : ViewModel(){
 
@@ -24,8 +25,8 @@ class MainViewModel : ViewModel(){
 
         return itemList
     }
-    private fun childItemList(): List<List<SomeData>> {
-        val childItemList: List<List<SomeData>> = DataGenerator.getData()
+    private fun childItemList(): List<List<FeedData>> {
+        val childItemList: List<List<FeedData>> = DataGenerator.getData()
         Log.d("Tag","ChildItemList"+childItemList[0])
         Log.d("Tag","ChildItemList"+childItemList[1])
         Log.d("Tag","ChildItemList size"+childItemList.size)

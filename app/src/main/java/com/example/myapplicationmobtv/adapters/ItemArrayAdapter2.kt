@@ -9,25 +9,24 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.myapplicationmobtv.Parentitemseries
-import com.example.myapplicationmobtv.R
-import com.example.myapplicationmobtv.feed
-import com.example.myapplicationmobtv.serieId
+import com.example.myapplicationmobtv.*
+import com.example.myapplicationmobtv.series_screen.SeriesFragment
+import com.example.myapplicationmobtv.series_screen.SeriesViewModel
 
-var selectedItem = -1
 
 class ItemArrayAdapter2     // Constructor of the class
 constructor(//All methods in this adapter are required for a bare minimum recyclerview adapter
-    private val listItemLayout2: Int, private val itemList: List<Parentitemseries>
+    private val listItemLayout2: Int, private val seriesList: List<Series>
 ) :
     RecyclerView.Adapter<ItemArrayAdapter2.ViewHolder>() {
 
-
+    val viewModel= SeriesViewModel()
     // get the size of the list
     override fun getItemCount(): Int {
-        return feed?.series?.get(serieId.getInt("key"))?.seasons!!.get(1).episodes.size   // itemList. size
+        return      seriesList.get(viewModel.id).seasonList?.get(1)?.episodes?.size ?:0
     }
 
     // specify the row layout file and click for each row
@@ -45,31 +44,45 @@ constructor(//All methods in this adapter are required for a bare minimum recycl
     // load data in each row element
 
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
-        //  val childItem = itemList[listPosition]
-        holder.item.setText(
-            "${feed?.series?.get(serieId.getInt("key"))?.seasons?.get(seasonsNumber)?.episodes?.get(listPosition)?.title}")
-        holder.item2.setText(
-            "${feed?.series?.get(serieId.getInt("key"))?.seasons?.get(seasonsNumber)?.episodes?.get(listPosition)?.shortDescription}"
-        )
-        Glide.with(holder.itemView.context)
-            .load(
-                feed?.series?.get(serieId.getInt("key"))?.seasons?.get(seasonsNumber)?.episodes?.get(listPosition)?.thumbnail)
-            .centerCrop()
-            .error(mDefaultCardImage)
-            .into(holder.img)
-        Log.d("Tag", "seasonNumber $seasonsNumber")
-        holder.cardView.setCardBackgroundColor(0)
+        val fragment = SeriesFragment()
 
-        holder.cardView.setOnFocusChangeListener(OnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus) {
+        if (fragment.seasonNumber != null) {
+            holder.item.setText(
+                "${
+                    seriesList.get(viewModel.id).seasonList?.get(fragment.seasonNumber as Int)?.episodes?.get(
+                        listPosition
+                    )?.title
+                }"
+            )
+            holder.item2.setText(
+                "${
+                    seriesList.get(viewModel.id).seasonList?.get(fragment.seasonNumber as Int)?.episodes?.get(
+                        listPosition
+                    )?.shortDescription
+                }"
+            )
+            Glide.with(holder.itemView.context)
+                .load(
+                    seriesList.get(viewModel.id).seasonList?.get(fragment.seasonNumber as Int)?.episodes?.get(
+                        listPosition
+                    )?.thumbnail
+                )
+                .centerCrop()
+                .error(mDefaultCardImage)
+                .into(holder.img)
+            Log.d("Tag", "seasonNumber ${fragment.seasonNumber}")
+            holder.cardView.setCardBackgroundColor(0)
+
+            holder.cardView.setOnFocusChangeListener(OnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) {
 
                     holder.cardView.setBackgroundResource(0)
-                }else  holder.cardView.setBackgroundResource(R.drawable.icon)
+                } else holder.cardView.setBackgroundResource(R.drawable.icon)
 
-        })
+            })
 
+        }else holder.cardView.isVisible=false
     }
-
     // Static inner class to initialize the views of rows
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
