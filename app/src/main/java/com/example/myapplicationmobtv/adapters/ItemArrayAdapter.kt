@@ -44,7 +44,7 @@ class ItemArrayAdapter     // Constructor of the class
     override fun onBindViewHolder(holder: ViewHolder, listPosition: Int) {
 val viewModel= SeriesViewModel()
 
-      //  val childItem = itemList[listPosition]
+
         if(listPosition<5){
             holder.item.text = "${seriesList[viewModel.id].seasonList?.get(0)?.seasonNumber}"
         }
