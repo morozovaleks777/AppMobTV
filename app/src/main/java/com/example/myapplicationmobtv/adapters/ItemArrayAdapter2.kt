@@ -1,6 +1,7 @@
 package com.example.myapplicationmobtv.adapters
 
 
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,14 @@ import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
+import androidx.fragment.app.add
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplicationmobtv.*
+import com.example.myapplicationmobtv.main_screen.MainFragment
 import com.example.myapplicationmobtv.series_screen.SeriesFragment
 import com.example.myapplicationmobtv.series_screen.SeriesViewModel
 
@@ -93,6 +97,17 @@ constructor(//All methods in this adapter are required for a bare minimum recycl
         override fun onClick(view: View?) {
             Log.d("Tag", "onClick " + layoutPosition + " " + item.text)
 
+            val bundle = Bundle()
+            val fragment= MainFragment()
+            bundle.putInt("episodeNumber",layoutPosition)
+            fragment.arguments = bundle
+
+            (view?.context as AppCompatActivity).supportFragmentManager.beginTransaction()
+                .setReorderingAllowed(false)
+                .replace(R.id.container, Detail())
+               .add<Detail>("episodeNumber",fragment.arguments)
+                .addToBackStack(null)
+                .commit()
         }
 
         init {

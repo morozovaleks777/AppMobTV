@@ -14,6 +14,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:banner="@drawable/app_icon_your_company"
         android:icon="@mipmap/ic_launcher"
@@ -24,7 +26,11 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+
+            android:rotation="180.0"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
