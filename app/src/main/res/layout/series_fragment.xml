@@ -12,7 +12,7 @@
     <androidx.recyclerview.widget.RecyclerView
 
         android:id="@+id/recyclerView1"
-        android:layout_width="118dp"
+        android:layout_width="wrap_content"
         android:layout_height="440dp"
         android:layout_margin="10dp"
         android:layout_marginStart="16dp"
@@ -20,24 +20,24 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.481" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
-        android:layout_width="125dp"
-        android:layout_height="371dp"
+        android:layout_width="wrap_content"
+        android:layout_height="440dp"
         android:layout_margin="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintHorizontal_bias="0.983"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.424" />
+        app:layout_constraintVertical_bias="0.43" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

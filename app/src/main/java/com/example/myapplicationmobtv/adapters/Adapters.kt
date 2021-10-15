@@ -1,4 +1,4 @@
-package com.example.myapplicationmobtv
+package com.example.myapplicationmobtv.adapters
 
 
 import android.os.Bundle
@@ -15,6 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.*
 import com.bumptech.glide.Glide
+import com.example.myapplicationmobtv.Feed
+import com.example.myapplicationmobtv.FeedData
+import com.example.myapplicationmobtv.ParentItem
+import com.example.myapplicationmobtv.R
 import com.example.myapplicationmobtv.main_screen.MainFragment
 import com.example.myapplicationmobtv.series_screen.SeriesFragment
 import kotlinx.android.synthetic.main.item_data.view.*
@@ -67,9 +71,9 @@ constructor(private val ChildItemList: List<FeedData>) :
                 }
             }
             is Feed.Serie -> {
-                childViewHolder.childItemTitle.text = childItem.seasons.toString()
+                childViewHolder.childItemTitle.text = childItem.title
                 childViewHolder.childItemShortDescription.text = childItem.shortDescription
-                Glide.with(childViewHolder.itemView.context)
+                Glide.with(childViewHolder.itemView.imagePreview)
                     .load(childItem.thumbnail)
                     .centerCrop()
                     .error(mDefaultCardImage)

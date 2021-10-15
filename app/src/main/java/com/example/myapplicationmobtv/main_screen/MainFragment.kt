@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.myapplicationmobtv.ParentItemAdapter
+import com.example.myapplicationmobtv.adapters.ParentItemAdapter
 import com.example.myapplicationmobtv.R
 import com.example.myapplicationmobtv.databinding.MainFragmentBinding
 

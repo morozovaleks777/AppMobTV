@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="132sp"
-    android:layout_height="100dp"
+    android:layout_width="170dp"
+    android:layout_height="160dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemData"
     android:layout_margin="4dp"
@@ -11,37 +11,39 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true">
 <LinearLayout
-    android:layout_width="128sp"
-    android:layout_height="100dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     >
     <ImageView
         android:id="@+id/imagePreview"
-        android:layout_width="97dp"
-        android:layout_height="56dp"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
         android:layout_gravity="center"
         />
 
     <TextView
+        android:layout_margin="1dp"
         android:id="@+id/nameTextView"
-        android:layout_width="128sp"
-        android:layout_height="20sp"
-
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
         android:gravity="center"
         android:textColor="@android:color/holo_red_light"
-        android:textSize="9sp"
+        android:textSize="12sp"
         tools:text="Some Name"
         />
 
     <TextView
         android:id="@+id/contentTextView"
-        android:layout_width="128sp"
-        android:layout_height="30sp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
         android:textColor="@android:color/holo_blue_bright"
-        android:textSize="9sp"
+        android:textSize="12sp"
         tools:text="Some Content" />
+
+
 
 </LinearLayout>
 </androidx.cardview.widget.CardView>
