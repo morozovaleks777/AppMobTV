@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#168BC34A"
+    tools:context=".Detail"
+    android:id="@+id/video">
+
+
+
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/video_player_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:resize_mode="fixed_width"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.586"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
